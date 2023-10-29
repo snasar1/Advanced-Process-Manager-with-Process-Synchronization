@@ -26,6 +26,6 @@ A project report is available in the `Project_Report.pdf` file, which includes t
 
 ## GitHub Repository
 
-The source code for this project, including the Python files, the `Project_Report.pdf`, and this `readme.md` file, is available on GitHub. You can access the repository at the following link: [Advanced-Process-Manager-with-Process-Synchronization](https://github.com/snasar1/Advanced-Process-Manager-with-Process-Synchronization/edit/main/README.md)
+The source code for this project, including the Python files, the `Project_Report.pdf`, and this `readme.md` file, is available on GitHub. You can access the repository at the following link: [Advanced-Process-Manager-with-Process-Synchronization](https://github.com/snasar1/Advanced-Process-Manager-with-Process-Synchronization/edit/main)
 
 Feel free to provide feedback. Happy processing!
