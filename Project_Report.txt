@@ -16,7 +16,7 @@ Installation and Usage
 
 To run this project, follow these steps:
 
-    Clone the GitHub repository to your local machine: Project Repository (https://github.com/snasar1/Advanced-Process-Manager-with-Process-Synchronization/blob/main/).
+    Clone the GitHub repository to your local machine: [Project Repository] (https://github.com/snasar1/Advanced-Process-Manager-with-Process-Synchronization/blob/main/).
 
     Make sure you have Python installed on your system. This project is compatible with Python 3.6 and above.
 
