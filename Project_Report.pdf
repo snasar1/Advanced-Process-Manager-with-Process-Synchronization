@@ -1,0 +1,49 @@
+Project Report: Advanced Process Manager with Process Synchronization
+Introduction
+
+The "Advanced Process Manager with Process Synchronization" is a Python-based project that focuses on process and thread management using the multiprocessing and threading modules. The objective is to create a robust and user-friendly tool for managing processes and threads, offering functionalities such as creating processes, listing processes, terminating processes, and creating threads.
+Implemented Functionalities
+
+    Process Creation: Users can create new processes by providing a command. The process manager utilizes Python's subprocess module to launch these processes.
+
+    List Processes: The application can list all active processes, allowing users to monitor their execution and check their status.
+
+    Process Termination: Users can specify a process by its Process ID (PID) and terminate it when needed. This feature helps in managing and controlling running processes.
+
+    Thread Creation: The project supports the creation of threads by specifying a target function. Threads are essential for handling concurrent execution and parallel processing.
+
+Installation and Usage
+
+To run this project, follow these steps:
+
+    Clone the GitHub repository to your local machine: Project Repository.
+
+    Make sure you have Python installed on your system. This project is compatible with Python 3.6 and above.
+
+    Open a terminal and navigate to the project directory.
+
+    Run the main script using the following command:
+
+    python main.py
+
+    You will be presented with a menu where you can choose different options to interact with the process manager.
+
+    Follow the on-screen instructions to create processes, list processes, terminate processes, and create threads.
+
+    Exit the program by selecting the appropriate option from the menu.
+
+Test Results
+
+To ensure the reliability and correctness of the process manager, unit tests have been implemented using Python's unittest framework. The test_process_manager.py file contains test cases for various functionalities, including process creation, thread creation, and process termination. The tests verify that the process manager performs as expected and handles different scenarios accurately.
+Discussion
+
+The project achieves its goals of providing a robust and user-friendly process manager with process synchronization. By using the multiprocessing and threading modules, the tool can handle both processes and threads effectively. The creation and management of these elements can aid developers in building concurrent and parallel applications.
+
+The project enhances skills in manipulating processes and threads while minimizing conflicts in system resource usage. By exploiting system calls, this tool demonstrates the capability to control and monitor processes in a real-world scenario.
+Conclusion
+
+The "Advanced Process Manager with Process Synchronization" project is a practical tool for managing processes and threads. It is designed to provide a seamless user experience for process and thread control. This tool can be a valuable asset for developers working on projects that involve multi-processing and multi-threading requirements.
+
+The project is open for contributions and improvements. Feel free to explore the GitHub repository, make contributions, and provide feedback.
+
+Thank you for exploring this project!
