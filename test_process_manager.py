@@ -1,59 +1,78 @@
-import unittest
-import unittest.mock
-import io
+import logging
+import tkinter as tk
+from tkinter import messagebox
+import os
+
+# Import the ProcessManager class from process_manager.py
 from process_manager import ProcessManager
 
-# Define a test class for the ProcessManager
-class TestProcessManager(unittest.TestCase):
-    # Setup method: Initialize the ProcessManager instance before each test
-    def setUp(self):
+class ProcessManagerGUI:
+    def __init__(self, root):
+        # Initialize the GUI
+        self.root = root
+        self.root.title("Process Manager GUI")
         self.manager = ProcessManager()
 
-    # Define a custom assertion method for checking error messages in stderr
-    @unittest.mock.patch('sys.stderr', new_callable=io.StringIO)
-    def assert_stderr(self, process_pid, expected_error, mock_stderr):
-        # Terminate a process and capture the error message from stderr
-        self.manager.terminate_process(process_pid)
-        error_msg = mock_stderr.getvalue().strip()
-        # Check if the expected error message is present in the captured error message
+        # Create Process
+        tk.Label(root, text="Enter a command:").pack()
+        self.command_entry = tk.Entry(root)
+        self.command_entry.pack()
+        create_process_button = tk.Button(root, text="Create Process", command=self.create_process)
+        create_process_button.pack()
 
-        self.assertTrue(expected_error in error_msg)
+        # List Processes
+        list_processes_button = tk.Button(root, text="List Processes", command=self.list_processes)
+        list_processes_button.pack()
 
-    # Test case for creating a new process
-    def test_create_process(self):
-        # Create a new process with a test command
-        self.manager.create_process("echo 'Test process'")
-        # Get the list of active processes
-        processes = self.manager.list_processes()
-        # Check if the string "Process PID" is present in the first process description
-        self.assertTrue("Process PID" in processes[0])
+        # Terminate Process
+        tk.Label(root, text="Enter PID to terminate:").pack()
+        self.pid_entry = tk.Entry(root)
+        self.pid_entry.pack()
+        terminate_process_button = tk.Button(root, text="Terminate Process", command=self.terminate_process)
+        terminate_process_button.pack()
 
-    # Test case for creating new threads
-    def test_create_thread(self):
-        # Define a dummy thread function
-        def thread_function():
-            pass
+    def create_process(self):
+        # Handle the "Create Process" button click
+        command = self.command_entry.get()
+        if command:
+            try:
+                # Attempt to create a new process
+                self.manager.create_process(command)
+                messagebox.showinfo("Process Created", f"Created process with command: {command}")
+            except Exception as e:
+                # Log and display an error message if process creation fails
+                error_msg = f"Error creating process: {str(e)}"
+                logging.error(error_msg)
+                messagebox.showerror("Error", error_msg)
+        else:
+            messagebox.showerror("Error", "Please enter a valid command.")
 
-        # Create two new threads with the dummy function
-        self.manager.create_thread(thread_function)
-        self.manager.create_thread(thread_function)
-        # Synchronize (join) all active threads
+    def list_processes(self):
+        # Handle the "List Processes" button click
+        process_info = self.manager.list_processes()
+        if process_info:
+            # Display the list of running processes
+            messagebox.showinfo("Running Processes", "\n".join(process_info))
+        else:
+            messagebox.showinfo("Running Processes", "No processes are running.")
 
-        self.manager.synchronize_threads()
+    def terminate_process(self):
+        # Handle the "Terminate Process" button click
+        pid_str = self.pid_entry.get()
+        if pid_str:
+            try:
+                # Attempt to terminate a process by PID
+                pid = int(pid_str)
+                self.manager.terminate_process(pid)
+            except ValueError:
+                # Display an error message for an invalid PID
+                messagebox.showerror("Error", "Invalid PID. Please enter a valid numeric PID.")
+        else:
+            messagebox.showerror("Error", "Please enter a PID to terminate.")
 
-    # Test case for terminating a process
-    def test_terminate_process(self):
-        # Create a new process with a test command
-        self.manager.create_process("echo 'Test process'")
-        # Get the list of active processes
-        processes = self.manager.list_processes()
-        # Extract the PID of the first process
-        process_pid = str(processes[0].split()[-1])
-        # Terminate the process by its PID
-        self.manager.terminate_process(process_pid)
-        # Check if the process with the specified PID is no longer in the list
-        self.assertNotIn(process_pid, self.manager.list_processes())
-
-# Run the unittest framework if this script is the main program
 if __name__ == '__main__':
-    unittest.main()
+    # Configure logging to write to a log file
+    logging.basicConfig(filename='process_manager.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    root = tk.Tk()
+    app = ProcessManagerGUI(root)
+    root.mainloop()
